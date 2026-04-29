@@ -102,11 +102,14 @@ class SawService
             $skorAkhir[$pendudukId] = round($vi, 6);
         }
 
-        // ── Step 5: Ranking ────────────────────────────────────────────
+        // ── Step 5: Ranking & Dynamic Threshold ────────────────────────
         arsort($skorAkhir); // Urutkan dari nilai tertinggi
+        
+        // Hitung rata-rata skor sebagai ambang batas dinamis
+        $rataRata = count($skorAkhir) > 0 ? array_sum($skorAkhir) / count($skorAkhir) : 0;
 
         // ── Step 6: Simpan ke Database ────────────────────────────────
-        DB::transaction(function () use ($skorAkhir, $userId) {
+        DB::transaction(function () use ($skorAkhir, $userId, $rataRata) {
             // Hapus hasil lama sebelum menyimpan yang baru
             HasilSaw::whereIn('penduduk_id', array_keys($skorAkhir))->delete();
 
@@ -116,7 +119,7 @@ class SawService
                     'penduduk_id'   => $pendudukId,
                     'nilai_saw'     => $skor,
                     'ranking'       => $ranking,
-                    'rekomendasi'   => $skor >= 0.5 ? 'layak' : 'tidak_layak',
+                    'rekomendasi'   => $skor >= $rataRata ? 'layak' : 'tidak_layak',
                     'dihitung_pada' => now(),
                     'dihitung_oleh' => $userId,
                 ]);
