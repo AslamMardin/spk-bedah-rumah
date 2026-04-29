@@ -119,7 +119,7 @@
 
         @if($penduduk->hasPages())
             <div class="p-3 border-top">
-                {{ $penduduk->links() }}
+                    {{ $penduduk->links() }}
             </div>
         @endif
     </div>

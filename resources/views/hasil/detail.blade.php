@@ -69,7 +69,7 @@
 </div>
 
 {{-- Penjelasan Rumus --}}
-<div class="card border-0 shadow-sm">
+{{-- <div class="card border-0 shadow-sm">
     <div class="card-header bg-white fw-bold border-0 pt-3">
         <i class="bi bi-calculator me-2 text-primary"></i>Rumus Normalisasi SAW
     </div>
@@ -98,5 +98,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

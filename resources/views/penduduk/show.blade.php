@@ -13,17 +13,7 @@
             </div>
             <small class="text-muted">NIK: {{ $penduduk->nik }}</small>
         </div>
-        @if (!auth()->user()->isPimpinan())
-            <div class="d-flex gap-2">
-                <a href="{{ route('penilaian.index', $penduduk) }}" class="btn btn-primary btn-sm">
-                    <i class="bi bi-clipboard-check me-1"></i>
-                    {{ $penduduk->penilaian->count() > 0 ? 'Edit Penilaian' : 'Isi Penilaian' }}
-                </a>
-                <a href="{{ route('penduduk.edit', $penduduk) }}" class="btn btn-warning btn-sm text-dark">
-                    <i class="bi bi-pencil me-1"></i>Edit
-                </a>
-            </div>
-        @endif
+        
 
         @if (auth()->user()->isAdmin() || auth()->user()->isPimpinan())
             <div class="d-flex gap-2">

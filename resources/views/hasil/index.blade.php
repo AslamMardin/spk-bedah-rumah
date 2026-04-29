@@ -67,9 +67,7 @@
                         @foreach($hasil as $h)
                             <tr class="{{ $h->rekomendasi === 'layak' ? 'table-success bg-opacity-25' : '' }}">
                                 <td class="text-center">
-                                    @if($h->ranking <= 3)
-                                        <i class="bi bi-trophy-fill text-{{ ['warning','secondary','warning'][$h->ranking - 1] }}"></i>
-                                    @endif
+                                   
                                     <span class="fw-bold">#{{ $h->ranking }}</span>
                                 </td>
                                 <td class="fw-semibold">{{ $h->penduduk->nama }}</td>
@@ -83,11 +81,18 @@
                                         {{ number_format($h->nilai_saw, 4) }}
                                     </span>
                                 </td>
-                                <td class="text-center">
-                                    <span class="badge bg-{{ $h->rekomendasi_color }} fs-6 px-3 py-2">
-                                        {{ $h->rekomendasi_label }}
-                                    </span>
-                                </td>
+                               <td class="text-center">
+    <div class="d-flex justify-content-center align-items-center gap-1">
+        <span class="badge bg-{{ $h->rekomendasi_color }} fs-6 px-3 py-2">
+            {{ $h->rekomendasi_label }}
+        </span>
+
+        <a href="{{ route('penduduk.show', $h->penduduk->id) }}" 
+           class="btn btn-info btn-sm">
+            <i class="bi bi-eye"></i>
+        </a>
+    </div>
+</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -96,7 +101,7 @@
 
             @if($hasil->hasPages())
                 <div class="p-3 border-top">
-                    {{ $hasil->links() }}
+                        {{ $hasil->links() }}
                 </div>
             @endif
         </div>

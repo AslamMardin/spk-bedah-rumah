@@ -20,7 +20,7 @@ class HasilController extends Controller
     {
         $hasil = HasilSaw::with('penduduk')
             ->orderBy('ranking')
-            ->paginate(15);
+            ->paginate(30);
 
         $sudahDihitung = HasilSaw::exists();
 

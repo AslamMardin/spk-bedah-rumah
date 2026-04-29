@@ -71,12 +71,12 @@
     <div class="col-lg-8">
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-white border-0 pb-0 pt-3 px-4">
-                <h6 class="fw-bold mb-0"><i class="bi bi-trophy me-2 text-warning"></i>Top 5 Calon Penerima</h6>
+                <h6 class="fw-bold mb-0"><i class="bi bi-trophy me-2 text-warning"></i>Top {{count($topRanking)}} Calon Penerima</h6>
             </div>
             <div class="card-body px-4">
                 @forelse($topRanking as $h)
                     <div class="d-flex align-items-center py-2 {{ !$loop->last ? 'border-bottom' : '' }}">
-                        <div class="fw-bold text-muted me-3" style="width:24px">#{{ $h->ranking }}</div>
+                        <div class="fw-bold text-muted me-3" style="width:40px">{{ $h->ranking }}</div>
                         <div class="flex-grow-1">
                             <div class="fw-semibold">{{ $h->penduduk->nama }}</div>
                             <small class="text-muted">{{ $h->penduduk->kelurahan }}, {{ $h->penduduk->kecamatan }}</small>
@@ -104,7 +104,7 @@
 
     {{-- Ringkasan Rekomendasi --}}
     <div class="col-lg-4">
-        <div class="card border-0 shadow-sm h-100">
+        <div class="card border-0 shadow-sm">
             <div class="card-header bg-white border-0 pb-0 pt-3 px-4">
                 <h6 class="fw-bold mb-0"><i class="bi bi-pie-chart me-2 text-info"></i>Rekomendasi</h6>
             </div>

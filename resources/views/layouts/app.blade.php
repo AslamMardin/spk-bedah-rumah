@@ -79,6 +79,39 @@
             #sidebar.show { transform: translateX(0); }
             #main-content { margin-left: 0; }
         }
+
+        /* ── Pagination Custom ── */
+        .pagination {
+            --bs-pagination-padding-x: 0.5rem;
+            --bs-pagination-padding-y: 0.25rem;
+            --bs-pagination-font-size: 0.8125rem;
+        }
+        .page-link {
+            border-radius: 0.25rem;
+            margin: 0 1px;
+            min-width: 32px;
+            padding: 0.25rem 0.5rem;
+            line-height: 1.4;
+        }
+        .page-link:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+        }
+        .page-item .page-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Arrow icons smaller */
+        .page-item .page-link i,
+        .page-item .page-link svg {
+            font-size: 0.75rem;
+            line-height: 1;
+        }
+        .page-item:first-child .page-link,
+        .page-item:last-child .page-link {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
     </style>
 
     @stack('styles')
@@ -88,7 +121,8 @@
 {{-- ── Sidebar ── --}}
 <nav id="sidebar">
     <div class="sidebar-brand">
-        <i class="bi bi-house-heart-fill me-2"></i>SPK Bedah Rumah
+        <span class="fw-bold" style="display: inline-block; margin:0; padding:0">Bantuan Bedah Rumah</span> <br>
+        <span style="font-size: 9px; color:#fff; background: orangered; padding: .25rem .5rem; border-radius: .25rem">Desa Piriang Kec.Tubbi Taramanu</span>
     </div>
 
     <ul class="nav flex-column mt-2">

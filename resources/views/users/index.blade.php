@@ -92,31 +92,5 @@
     </div>
 </div>
 
-{{-- Info Role --}}
-<div class="row g-3 mt-1">
-    <div class="col-md-4">
-        <div class="card border-danger border-opacity-25 bg-danger bg-opacity-5">
-            <div class="card-body py-2">
-                <span class="badge bg-danger me-2">Admin</span>
-                <small class="text-muted">Kelola kriteria, bobot, akun pengguna, dan hitung SAW.</small>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card border-primary border-opacity-25 bg-primary bg-opacity-5">
-            <div class="card-body py-2">
-                <span class="badge bg-primary me-2">Evaluator</span>
-                <small class="text-muted">Input data penduduk, penilaian, dan hitung SAW.</small>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card border-success border-opacity-25 bg-success bg-opacity-5">
-            <div class="card-body py-2">
-                <span class="badge bg-success me-2">Pimpinan</span>
-                <small class="text-muted">Lihat hasil ranking dan export laporan saja.</small>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection

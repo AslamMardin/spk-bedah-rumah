@@ -36,8 +36,8 @@
     <div class="login-card">
         <div class="login-header">
             <i class="bi bi-house-heart-fill fs-2 mb-2 d-block"></i>
-            <h5 class="mb-1 fw-bold">SPK Bedah Rumah</h5>
-            <small class="opacity-75">Sistem Pendukung Keputusan — Metode SAW</small>
+            <h5 class="mb-1 fw-bold">Bantuan Bedah Rumah</h5>
+            <small class="opacity-75">Desa Piriang Kec.Tubbi Taramanu</small>
         </div>
         <div class="login-body">
             @if($errors->any())
@@ -54,7 +54,7 @@
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                               value="{{ old('email') }}" placeholder="email@contoh.com" required autofocus>
+                               value="{{ old('email') }}" placeholder="admin@gmail.com" required autofocus>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -75,15 +75,7 @@
                 </button>
             </form>
 
-            <div class="mt-4 pt-3 border-top">
-                <p class="text-muted small text-center mb-2">Akun Demo:</p>
-                <div class="row g-1 text-center small">
-                    <div class="col-4"><span class="badge bg-danger w-100">Admin</span><br><span class="text-muted">admin@spk.test</span></div>
-                    <div class="col-4"><span class="badge bg-primary w-100">Evaluator</span><br><span class="text-muted">evaluator@spk.test</span></div>
-                    <div class="col-4"><span class="badge bg-success w-100">Pimpinan</span><br><span class="text-muted">pimpinan@spk.test</span></div>
-                </div>
-                <p class="text-muted small text-center mt-1 mb-0">Password: <code>password</code></p>
-            </div>
+         
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -26,8 +26,8 @@ class DashboardController extends Controller
         }
 
         $topRanking = HasilSaw::with('penduduk')
+            ->where('rekomendasi', 'layak')
             ->orderBy('ranking')
-            ->limit(5)
             ->get();
 
         return view('dashboard.index', compact('stats', 'topRanking'));
