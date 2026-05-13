@@ -83,7 +83,7 @@
                                    value="{{ old('rw', $penduduk->rw) }}" maxlength="5">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Kelurahan <span class="text-danger">*</span></label>
+                            <label class="form-label fw-semibold">Desa <span class="text-danger">*</span></label>
                             <input type="text" name="kelurahan" class="form-control"
                                    value="{{ old('kelurahan', $penduduk->kelurahan) }}" required>
                         </div>
