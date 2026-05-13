@@ -121,7 +121,7 @@
 {{-- ── Sidebar ── --}}
 <nav id="sidebar">
     <div class="sidebar-brand">
-        <span class="fw-bold" style="display: inline-block; margin:0; padding:0">Bantuan Bedah Rumah</span> <br>
+        <span class="fw-bold" style="display: inline-block; margin:0; padding:0">Bedah Rumah Tutar</span> <br>
         <span style="font-size: 9px; color:#fff; background: orangered; padding: .25rem .5rem; border-radius: .25rem">Desa Piriang Kec.Tubbi Taramanu</span>
     </div>
 
