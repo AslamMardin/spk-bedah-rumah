@@ -151,9 +151,83 @@ class SawService
             $detail[$penduduk->id] = $row;
         }
 
+        $matriks = [];
+        foreach ($detail as $pendudukId => $row) {
+            if (count($row['kriteria']) === $kriteriaList->count()) {
+                foreach ($kriteriaList as $kriteria) {
+                    $matriks[$pendudukId][$kriteria->id] = (float) ($row['kriteria'][$kriteria->id] ?? 0);
+                }
+            }
+        }
+
+        $maxPerKriteria = [];
+        $minPerKriteria = [];
+
+        foreach ($kriteriaList as $kriteria) {
+            $nilaiKolom = array_column(
+                array_map(fn($row) => [$kriteria->id => $row[$kriteria->id] ?? null], $matriks),
+                $kriteria->id
+            );
+            $nilaiKolom = array_filter($nilaiKolom, fn($v) => $v !== null);
+
+            if (!empty($nilaiKolom)) {
+                $maxPerKriteria[$kriteria->id] = max($nilaiKolom);
+                $minPerKriteria[$kriteria->id] = min($nilaiKolom);
+            } else {
+                $maxPerKriteria[$kriteria->id] = 0;
+                $minPerKriteria[$kriteria->id] = 0;
+            }
+        }
+
+        $normalisasi = [];
+        $skorAkhir = [];
+        foreach ($matriks as $pendudukId => $row) {
+            $normalRow = ['nama' => $detail[$pendudukId]['nama'], 'nik' => $detail[$pendudukId]['nik'], 'kriteria' => []];
+            $vi = 0;
+
+            foreach ($kriteriaList as $kriteria) {
+                $xij = $row[$kriteria->id];
+
+                if ($kriteria->tipe === 'benefit') {
+                    $nilai = $maxPerKriteria[$kriteria->id] > 0
+                        ? $xij / $maxPerKriteria[$kriteria->id]
+                        : 0;
+                } else {
+                    $nilai = $xij > 0
+                        ? $minPerKriteria[$kriteria->id] / $xij
+                        : 0;
+                }
+
+                $normalRow['kriteria'][$kriteria->id] = round((float) $nilai, 6);
+                $vi += $kriteria->bobot_desimal * $normalRow['kriteria'][$kriteria->id];
+            }
+
+            $normalisasi[$pendudukId] = $normalRow;
+            $skorAkhir[$pendudukId] = round($vi, 6);
+        }
+
+        arsort($skorAkhir);
+        $rataRata = count($skorAkhir) > 0 ? array_sum($skorAkhir) / count($skorAkhir) : 0;
+
+        $keputusan = [];
+        $ranking = 1;
+        foreach ($skorAkhir as $pendudukId => $skor) {
+            $keputusan[] = [
+                'penduduk_id' => $pendudukId,
+                'nama'        => $detail[$pendudukId]['nama'],
+                'nik'         => $detail[$pendudukId]['nik'],
+                'nilai_saw'   => round($skor, 6),
+                'ranking'     => $ranking,
+                'rekomendasi' => $skor >= $rataRata ? 'layak' : 'tidak_layak',
+            ];
+            $ranking++;
+        }
+
         return [
-            'kriteria' => $kriteriaList,
-            'detail'   => $detail,
+            'kriteria'    => $kriteriaList,
+            'detail'      => $detail,
+            'normalisasi' => $normalisasi,
+            'keputusan'   => $keputusan,
         ];
     }
 }

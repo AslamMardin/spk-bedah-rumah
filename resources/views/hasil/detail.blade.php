@@ -68,6 +68,76 @@
     </div>
 </div>
 
+{{-- Matriks Normalisasi --}}
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white fw-bold border-0 pt-3">
+        <i class="bi bi-table me-2 text-primary"></i>Matriks Normalisasi (r<sub>ij</sub>)
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Alternatif</th>
+                        @foreach($kriteria as $k)
+                            <th class="text-center">{{ $k->kode }}</th>
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($normalisasi as $pendudukId => $row)
+                        <tr>
+                            <td class="fw-semibold">{{ $row['nama'] }}<br><small class="text-muted">{{ $row['nik'] }}</small></td>
+                            @foreach($kriteria as $k)
+                                <td class="text-center">
+                                    {{ isset($row['kriteria'][$k->id]) ? number_format((float) $row['kriteria'][$k->id], 4, ',', '.') : '—' }}
+                                </td>
+                            @endforeach
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{-- Keputusan Akhir --}}
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white fw-bold border-0 pt-3">
+        <i class="bi bi-check2-circle me-2 text-primary"></i>Keputusan Akhir & Ranking
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="text-center">Ranking</th>
+                        <th>Alternatif</th>
+                        <th class="text-center">Nilai SAW (Vi)</th>
+                        <th class="text-center">Keputusan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($keputusan as $item)
+                        <tr class="{{ $item['rekomendasi'] === 'layak' ? 'table-success' : 'table-danger' }}">
+                            <td class="text-center fw-bold">#{{ $item['ranking'] }}</td>
+                            <td class="fw-semibold">{{ $item['nama'] }}<br><small class="text-muted">{{ $item['nik'] }}</small></td>
+                            <td class="text-center fw-bold text-primary">
+                                {{ number_format((float) $item['nilai_saw'], 4, ',', '.') }}
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-{{ $item['rekomendasi'] === 'layak' ? 'success' : 'danger' }} px-3 py-2">
+                                    {{ $item['rekomendasi'] === 'layak' ? 'Layak' : 'Tidak Layak' }}
+                                </span>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 {{-- Penjelasan Rumus --}}
 {{-- <div class="card border-0 shadow-sm">
     <div class="card-header bg-white fw-bold border-0 pt-3">
