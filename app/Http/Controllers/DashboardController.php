@@ -30,6 +30,13 @@ class DashboardController extends Controller
             ->orderBy('ranking')
             ->get();
 
-        return view('dashboard.index', compact('stats', 'topRanking'));
+        $statusCounts = [
+            'pending'  => Penduduk::where('status', 'pending')->count(),
+            'proses'   => Penduduk::where('status', 'proses')->count(),
+            'diterima' => Penduduk::where('status', 'diterima')->count(),
+            'ditolak'  => Penduduk::where('status', 'ditolak')->count(),
+        ];
+
+        return view('dashboard.index', compact('stats', 'topRanking', 'statusCounts'));
     }
 }

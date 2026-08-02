@@ -31,6 +31,13 @@ class PendudukController extends Controller
 
     public function store(Request $request)
     {
+        // Cek jika NIK sudah ada di database
+        if ($request->filled('nik') && Penduduk::where('nik', $request->nik)->exists()) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Gagal menambah data! NIK sudah terdaftar di database.');
+        }
+
         $validated = $request->validate([
             'nik'                    => 'required|digits:16|unique:penduduk,nik',
             'nama'                   => 'required|string|max:255',

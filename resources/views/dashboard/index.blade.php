@@ -104,7 +104,7 @@
 
     {{-- Ringkasan Rekomendasi --}}
     <div class="col-lg-4">
-        <div class="card border-0 shadow-sm">
+        <div class="card border-0 shadow-sm mb-3">
             <div class="card-header bg-white border-0 pb-0 pt-3 px-4">
                 <h6 class="fw-bold mb-0"><i class="bi bi-pie-chart me-2 text-info"></i>Rekomendasi</h6>
             </div>
@@ -131,6 +131,90 @@
                 @endif
             </div>
         </div>
+
+        {{-- Diagram Batang Statistik Status --}}
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0 pb-0 pt-3 px-4">
+                <h6 class="fw-bold mb-0"><i class="bi bi-bar-chart-fill me-2 text-primary"></i>Statistik Status Bantuan</h6>
+            </div>
+            <div class="card-body px-4 pb-4">
+                <div style="position: relative; height: 200px; width: 100%;">
+                    <canvas id="statusChart"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ctx = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Menunggu', 'Diproses', 'Diterima', 'Ditolak'],
+                datasets: [{
+                    label: 'Jumlah Penduduk',
+                    data: [
+                        {{ $statusCounts['pending'] }},
+                        {{ $statusCounts['proses'] }},
+                        {{ $statusCounts['diterima'] }},
+                        {{ $statusCounts['ditolak'] }}
+                    ],
+                    backgroundColor: [
+                        'rgba(255, 193, 7, 0.75)',  // Warning (yellow)
+                        'rgba(13, 202, 240, 0.75)',  // Info (cyan)
+                        'rgba(25, 135, 84, 0.75)',   // Success (green)
+                        'rgba(220, 53, 69, 0.75)'    // Danger (red)
+                    ],
+                    borderColor: [
+                        'rgb(255, 193, 7)',
+                        'rgb(13, 202, 240)',
+                        'rgb(25, 135, 84)',
+                        'rgb(220, 53, 69)'
+                    ],
+                    borderWidth: 1.5,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        padding: 10,
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.raw} Warga`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            precision: 0
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+@endpush
 @endsection
