@@ -20,7 +20,7 @@
                 </div>
                 <div>
                     <div class="fs-3 fw-bold">{{ $stats['total_penduduk'] }}</div>
-                    <div class="text-muted small">Total Penduduk</div>
+                    <div class="text-muted small"> Total Penduduk</div>
                 </div>
             </div>
         </div>
